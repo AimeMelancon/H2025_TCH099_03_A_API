@@ -1,10 +1,6 @@
 <?php 
 
-class Utilisateurs{
 
-
-    
-}
 
 
 ?>
