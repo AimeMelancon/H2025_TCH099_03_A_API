@@ -28,4 +28,9 @@ get('/api/v1/ordinateur/$niveau/$modules', function () {
     getModules();
 });
 
+
+get('/api/v1/web/$module/$matricule', function(){
+    getMatricule();
+})
+
 ?>
