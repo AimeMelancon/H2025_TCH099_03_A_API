@@ -4,6 +4,7 @@ require 'config.php';
 
 require 'api/v1/instructions/getInstructions.php';
 require 'api/v1/instructions/getSolution.php';
+require 'api/v1/modules/verifyMatricule.php';
 
 
 get('/api/v1/instructions/$matricule', function () {
@@ -12,6 +13,10 @@ get('/api/v1/instructions/$matricule', function () {
 
 get('/api/v1/solution/$matricule', function () {
     getSolution();
+    });
+    
+get('/api/v1/$modules/$matricule', function () {
+    verifyMatricule();
     });    
 
 

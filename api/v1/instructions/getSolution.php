@@ -44,7 +44,7 @@ function getSolution() {
     $stmt->execute();
     $result = $stmt->fetchAll();
 
-    // Envoyer les instructions (ou une erreur si cela n'a pas fonctionné)
+    // Envoyer la solution (ou une erreur si cela n'a pas fonctionné)
     if ($result) {
         http_response_code(200);
         echo json_encode($result);
