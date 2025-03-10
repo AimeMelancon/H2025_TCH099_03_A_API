@@ -1,5 +1,5 @@
 <?php 
-function getInstructions() {
+function getInstructions($matricule) {
     // Ajout des headers requis
     header('Access-Control-Allow-Origin: *');
     header("Content-Type: application/json");
@@ -14,25 +14,14 @@ function getInstructions() {
         exit();
         }
 
-    
-    preg_match('/\/api\/v([0-9]+)\/instructions\/([A-Za-z0-9]+)/', $_SERVER['REQUEST_URI'], $matches);
 
-    // Vérification que la route contienne la version de l'API ($matches[1]) et un matricule ($matches[2]) 
-    if (!isset($matches[1]) || !isset($matches[2])) {
-        http_response_code(400);
-        echo json_encode(["error" => "Route invalide"]);
-        exit();
-    }    
-
-    $api_version = $matches[1];
-    $matricule = $matches[2];
 
 
     // Requête PLACEHOLDER; vraie requête à venir
     $query = 
     "SELECT instruction_text
     FROM Instructions
-    WHERE matricule = :mat AND api_ver = :api_ver
+    WHERE matricule = :mat
     ";
 
 
@@ -40,7 +29,6 @@ function getInstructions() {
     // Exécuter la requête SQL avec paramètres la version d'api et le matricule
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(":mat", $matricule);
-    $stmt->bindParam("api_ver", $api_version);
     $stmt->execute();
     $result = $stmt->fetchAll();
 

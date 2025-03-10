@@ -1,5 +1,5 @@
 <?php
-function getModules()
+function getModules($niv,$mod)
 {
     // Ajout des headers requis
     header('Access-Control-Allow-Origin: *');
@@ -14,34 +14,24 @@ function getModules()
         echo json_encode(["error" => "Methode HTTP non autorisée"]);
         exit();
     }
-    //On cherche les informations usr la requête
-    preg_match('/\/api\/v([0-9]+)\/ordinateur\/([A-Za-z0-9]+)\/([A-Za-z0-9]+)/', $_SERVER['REQUEST_URI'], $matches);
-
-    // Vérification que la route contienne la version de l'API ($matches[1]) et un matricule ($matches[2]) .
-    if (!isset($matches[1]) || !isset($matches[2])|| !isset($matches[3])) {
-        http_response_code(400);
-        echo json_encode(["error" => "Route invalide"]);
-        exit();
-    }
+    
+   
 
     //Assignation de variable
-    $api_version = $matches[1];
-    $niveau = $matches[2];
-    $module = $matches[3];
+    $niveau = $niv;
+    $module =$mod;
     //Permet de créer un champ pour savoir si le sql va bien s'effectuer ou non
     try {
         //Préparation de la requête sql. 
-        //TODO: Vérifié le sql écrit, car je ne suis pas sûr de ce que j'ai fait.
+        
         $req = $pdo->prepare
         ('SELECT module.*
-             FROM niveau =:niveau
-             JOIN module ON module.id_module = :id_module
-             WHERE api_ver = :api_ver AND module.id_module = :id_module
+             FROM :niveau
+             WHERE module.id_module = :id_module
     ');
 
         //Association des paramètres reçu avec les paramètres sql. 
         $req->execute([
-            "api_ver" => $api_version,
             "id_module" => $module,
             "niveau" => $niveau
         ]);

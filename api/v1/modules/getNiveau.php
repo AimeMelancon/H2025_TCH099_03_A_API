@@ -1,5 +1,5 @@
 <?php
-function getNiveau()
+function getNiveau($niveau)
 {
 
     // Ajout des headers requis
@@ -15,32 +15,20 @@ function getNiveau()
         echo json_encode(["error" => "Methode HTTP non autorisée"]);
         exit();
     }
-    //On cherche les informations usr la requête
-    preg_match('/\/api\/v([0-9]+)\/ordinateur\/([A-Za-z0-9]+)/', $_SERVER['REQUEST_URI'], $matches);
-
-    // Vérification que la route contienne la version de l'API ($matches[1]) et un matricule ($matches[2]) .
-    if (!isset($matches[1]) || !isset($matches[2])) {
-        http_response_code(400);
-        echo json_encode(["error" => "Route invalide"]);
-        exit();
-    }
+    
 
     //Assignation de variable
-    $api_version = $matches[1];
-    $niv = $matches[2];
+    $niv = $niveau;
 
     //Permet de créer un champ pour savoir si le sql va bien s'effectuer ou non
     try {
         //Préparation de la requête sql.
         $req = $pdo->prepare
         ('SELECT *
-         FROM niveau
-         WHERE api_ver = :api_ver AND id_niveau = :id_niv
-');
+                 FROM niveau');
 
         //Association des paramètres reçu avec les paramètres sql.
         $req->execute([
-            "api_ver" => $api_version,
             "id_niv" => $niv
         ]);
 

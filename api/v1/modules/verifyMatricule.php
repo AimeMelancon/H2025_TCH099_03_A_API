@@ -1,6 +1,6 @@
 <?php
 
-function verifyMatricule() {
+function verifyMatricule($niveau,$module) {
     // Ajout des headers requis
     header('Access-Control-Allow-Origin: *');
     header("Content-Type: application/json");
@@ -15,15 +15,8 @@ function verifyMatricule() {
         exit();
         }
 
-    
-    preg_match('/\/api\/v([0-9]+)\/([A-Za-z]+)\/([A-Za-z0-9]+)/', $_SERVER['REQUEST_URI'], $matches);
-
-    // Vérification que la route contienne la version de l'API ($matches[1]) et un matricule ($matches[2]) 
-    if (!isset($matches[1]) || !isset($matches[2]) || !isset($matches[3])) {
-        http_response_code(400);
-        echo json_encode(["error" => "Route invalide"]);
-        exit();
-    }
+        //TODO: À retirer pour mettre le code qui le complète.
+    echo $niveau."  ".$module;
     
     // continuer...
 
