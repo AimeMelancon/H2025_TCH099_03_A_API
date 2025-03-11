@@ -1,6 +1,6 @@
 from api.v1.instructions.getInstructions import getInstruction
 from api.v1.modules.verifyMatricule import verifyMatricule
-from api.v1.niveau.getNiveaux import getNiveaux
+from api.v1.niveaux.getNiveaux import getNiveaux
 from flask import make_response
 
 def initialize_routes(app):
