@@ -8,6 +8,8 @@ def initialize_routes(app):
     
     @app.route('/api/v1/instructions/<matricule>', methods=['GET'])
     def instruction(matricule):
+        """Route qui récupère les instructions apartenant à un certain matricule."""
+
         data = getInstruction(matricule)
 
         # Préparer une réponse
@@ -22,6 +24,7 @@ def initialize_routes(app):
 
     @app.route('/api/v1/<module>/<matricule>', methods=['GET'])
     def verify(module, matricule):
+        """Route qui vérifie si le nom du module est présent, si le matricule existe et s'ils sont liés."""
 
         boolean = verifyMatricule(module, matricule)
 
@@ -36,7 +39,8 @@ def initialize_routes(app):
     
     @app.route('/api/v1/niveaux',methods=['GET'])
     def niveaux():
-        
+        """Route qui récupère tous les niveaux présents dans la base de données."""
+
         # Récupérer la liste de niveaux
         data = getNiveaux()
         
@@ -51,7 +55,7 @@ def initialize_routes(app):
     
     @app.route('/api/v1/modules/<module>', methods=['GET'])
     def mod(module):
-        
+        """Route qui récupère un module par son nom"""
         # Récupérer le module demandé
         data = getModule(module)
         
