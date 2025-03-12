@@ -6,7 +6,7 @@ class Niveau(db.Model):
 
     id_ = db.Column(db.Integer, primary_key=True)
     nom = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.String(1024), nullable=False)
+    description = db.Column(db.Text, nullable=False)
     duration = db.Column(db.Integer, nullable=False)
     difficulty = db.Column(db.String(30), nullable=False)
     color = db.Column(db.String(6), nullable=False)
@@ -24,7 +24,7 @@ class Module(db.Model):
     __tablename__ = 'module'
 
     id_ = db.Column(db.Integer, primary_key=True)
-    schema = db.Column(db.String(255), nullable=False)
+    schema = db.Column(db.Text, nullable=False)
     nom = db.Column(db.String(30), nullable=False)
 
     # Clé étrangère vers Instruction
@@ -58,7 +58,7 @@ class Instruction(db.Model):
 
     id_ = db.Column(db.Integer, primary_key=True)
     nom = db.Column(db.String(30), nullable=False)
-    description = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.Text, nullable=False)
 
     # Relation avec Module
     modules = db.relationship('Module', backref='instruction', lazy='select')

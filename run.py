@@ -15,7 +15,7 @@ with flask_app.app_context():
     db.session.query(Instruction).delete()
     db.session.query(Niveau).delete()
 
-    # 🔹 Ajout des Instructions
+    # Ajout des Instructions
     instruction1 = Instruction(nom="Intro", description="Learn Flask basics")
     instruction2 = Instruction(nom="Database", description="Introduction to SQLAlchemy and database relations")
     instruction3 = Instruction(nom="Flask", description="Working with Blueprints, Middleware, and API Development")
@@ -23,7 +23,7 @@ with flask_app.app_context():
     db.session.add_all([instruction1, instruction2, instruction3])
     db.session.commit()  # Commit pour générer les IDs
 
-    # 🔹 Ajout des Modules liés aux Instructions
+    # Ajout des Modules liés aux Instructions
     module1 = Module(nom="Flask", schema="schema_1", instructions_id=instruction1.id_)
     module2 = Module(nom="SQL", schema="schema_2", instructions_id=instruction2.id_)
     module3 = Module(nom="API", schema="schema_3", instructions_id=instruction3.id_)
