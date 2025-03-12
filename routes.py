@@ -56,7 +56,7 @@ def initialize_routes(app):
         data = getModule(module)
         
         #Préparation de la réponse
-        response = make_response(dat)
+        response = make_response(data)
         
         response.headers['Access-Control-Allow-Origin'] = '*'
         response.headers['Content-Type'] = 'application/json; charset=utf-8'
