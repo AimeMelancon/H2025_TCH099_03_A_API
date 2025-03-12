@@ -1,6 +1,7 @@
 from api.v1.instructions.getInstructions import getInstruction
 from api.v1.modules.verifyMatricule import verifyMatricule
 from api.v1.niveaux.getNiveaux import getNiveaux
+from api.v1.modules.getModule import getModule
 from flask import make_response
 
 def initialize_routes(app):
@@ -43,6 +44,20 @@ def initialize_routes(app):
         response  = make_response(data)
         
          # Set les headers de la réponse.
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Content-Type'] = 'application/json; charset=utf-8'
+        
+        return response
+    
+    @app.route('/api/v1/<module>', method=['GET'])
+    def module(module):
+        
+        # Récupérer le module demandé
+        data = getModule(module)
+        
+        #Préparation de la réponse
+        response = make_response(dat)
+        
         response.headers['Access-Control-Allow-Origin'] = '*'
         response.headers['Content-Type'] = 'application/json; charset=utf-8'
         
