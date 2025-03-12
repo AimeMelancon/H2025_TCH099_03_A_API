@@ -49,8 +49,8 @@ def initialize_routes(app):
         
         return response
     
-    @app.route('/api/v1/<module>', method=['GET'])
-    def module(module):
+    @app.route('/api/v1/modules/<module>', methods=['GET'])
+    def mod(module):
         
         # Récupérer le module demandé
         data = getModule(module)
