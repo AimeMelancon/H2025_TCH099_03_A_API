@@ -1,4 +1,4 @@
-# BSP_API <sub>V1.1</sub>
+# BSP_API <sub>V1</sub>
 **L'API pour le projet Bash Space Program**
 
 Bash Space Program est un jeu qui se joue à deux joueurs veillez vous référencez au wiki ou la documentation du jeu
@@ -12,5 +12,3 @@ URL pour le repository de l'application web : [Client web](https://github.com/ju
  
 ### Disponible dans le wiki :
 [Routes](https://github.com/AimeMelancon/H2025_TCH099_03_A_API/wiki/Routes)
-        
-
