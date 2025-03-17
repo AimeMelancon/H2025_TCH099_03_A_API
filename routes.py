@@ -1,7 +1,7 @@
 from api.v1.niveaux.getNiveau import getNiveau
 from api.v1.niveaux.getNiveaux import getNiveaux
 from api.v1.instructions.getInstructions import getInstructions
-from flask import make_response
+from flask import make_response, request
 
 def initialize_routes(app):
 
@@ -37,9 +37,11 @@ def initialize_routes(app):
         
         return response
     
-    @app.route('/api/v1/instructions/<module>/<matricule>', methods=['GET'])
-    def instructions(module, matricule):
+    @app.route('/api/v1/verify', methods=['GET'])
+    def instructions():
         """Route qui récupères les instructions pour un module et matricule fourni"""
+        module = request.args.get("module")
+        matricule = request.args.get("matricule")
 
         # Récupérer la liste de niveaux
         data = getInstructions(module, matricule)
