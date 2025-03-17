@@ -23,10 +23,9 @@ class Evenement(db.Model):
     couleur = db.Column(db.String(255), nullable=False)
     typeModule = db.Column(db.Integer, nullable=False)
 
-
 class TraductionMatricule(db.Model):
     __tablename__ = 'TraductionMatricule'
-    idMatricule = db.Column(db.Integer, primary_key=True, nullable=False)
+    idMatricule = db.Column(db.String(6), primary_key=True, nullable=False)
     nomModule = db.Column(db.String(255), nullable=False)
 
 class TraductionInstructions(db.Model):

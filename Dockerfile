@@ -1,18 +1,20 @@
-FROM php:8.1-apache
+# Use an official Python image
+FROM python:3.11
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    libzip-dev \
-    zip \
-    && docker-php-ext-install zip
+# Set the working directory
+WORKDIR /app
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql
+# Copy the application files
+COPY . .
 
-RUN a2enmod rewrite
-RUN a2enmod headers
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application source
-COPY . /var/www/html/
+# Ensure the database folder exists
+RUN mkdir -p db
 
-EXPOSE 80
+# Expose Flask port
+EXPOSE 5000
+
+# Run the Flask app
+CMD ["python", "app.py"]
