@@ -1,7 +1,11 @@
 from app import db
 
+
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+
 class Niveau(db.Model):
-    """Table niveau, qui contient les informations sur un niveau."""
     __tablename__ = 'niveau'
 
     id_ = db.Column(db.Integer, primary_key=True)
@@ -11,69 +15,150 @@ class Niveau(db.Model):
     difficulty = db.Column(db.String(30), nullable=False)
     color = db.Column(db.String(6), nullable=False)
 
-    # Relation many-to-many avec Module via la table Module_Niveau
-    modules = db.relationship('Module', secondary='module_niveau', back_populates='niveaux')
+    nbEvent = db.Column(db.Integer, nullable=False)
 
-    def __repr__(self):
-        return f"Niveau {self.nom} avec id {self.id_}"
-    
-
-
-class Module(db.Model):
-    """Table module, qui est liée à une instruction et à 1 ou plusieurs matricules."""
-    __tablename__ = 'module'
-
-    id_ = db.Column(db.Integer, primary_key=True)
-    schema = db.Column(db.Text, nullable=False)
-    nom = db.Column(db.String(30), nullable=False)
-
-    # Clé étrangère vers Instruction
-    instructions_id = db.Column(db.Integer, db.ForeignKey('instructions.id_'), nullable=False)
-
-    # Relation avec Matricule
-    matricules = db.relationship('Matricule', backref='module', lazy='select')
-
-    # Relation avec Niveau via Niveau-module
-    niveaux = db.relationship('Niveau', secondary='module_niveau', back_populates='modules')
-
-    def __repr__(self):
-        return f"Module avec nom{self.nom} et instructions {self.instructions_id}"
-
-
-
-class Module_Niveau(db.Model):
-    """Table d'association entre Module et Niveau (Many-to-Many)."""
-    __tablename__ = 'module_niveau'
-
-    module_id = db.Column(db.Integer, db.ForeignKey('module.id_'), primary_key=True)
-    niveau_id = db.Column(db.Integer, db.ForeignKey('niveau.id_'), primary_key=True)
-
-    def __repr__(self):
-        return f"Association Module {self.module_id} <-> Niveau {self.niveau_id}"
-
-
-class Instruction(db.Model):
-    """Table instructions, qui est liée à plusieurs modules."""
-    __tablename__ = 'instructions'
-
+class Evenement(db.Model):
     id_ = db.Column(db.Integer, primary_key=True)
     nom = db.Column(db.String(30), nullable=False)
     description = db.Column(db.Text, nullable=False)
+    duree = db.Column(db.Integer, nullable=False)
+    difficulte = db.Column(db.String(30), nullable=False)
+    couleur = db.Column(db.String(255), nullable=False)
+    typeModule = db.Column(db.Integer, nullable=False)
 
-    # Relation avec Module
-    modules = db.relationship('Module', backref='instruction', lazy='select')
+class TraductionMatricule(db.Model):
+    __tablename__ = 'TraductionMatricule'
+    idMatricule = db.Column(db.String(6), primary_key=True, nullable=False)
+    nomModule = db.Column(db.String(255), nullable=False)
 
-    def __repr__(self):
-        return f"Instruction avec nom {self.nom} et description {self.description}"
+class TraductionInstructions(db.Model):
+    __tablename__ = 'TraductionInstructions'
+    idModule = db.Column(db.Integer, primary_key=True, nullable=False)
+    nomInstructions = db.Column(db.String(255), nullable=False)
 
-class Matricule(db.Model):
-    """Table matricule, qui est liée à module"""
-    __tablename__ = 'matricule'
+class TraductionCouleurs(db.Model):
+    __tablename__ = 'TraductionCouleurs'
+    nomCouleur = db.Column(db.String(255), primary_key=True, nullable=False)
+    hexCouleur = db.Column(db.String(6), nullable=False)
 
-    numero = db.Column(db.String(6), primary_key=True)
+class Fils(db.Model):
+    __tablename__ = 'Fils'
+    id_ = db.Column(db.Integer, primary_key=True, nullable=False)
+    nbFils = db.Column(db.Integer, nullable=False)
+    couleurFil1 = db.Column(db.String(255), nullable=False)
+    couleurFil2 = db.Column(db.String(255), nullable=False)
+    couleurFil3 = db.Column(db.String(255), nullable=False)
+    couleurFil4 = db.Column(db.String(255), nullable=False)
+    couleurFil5 = db.Column(db.String(255), nullable=False)
+    couleurFil6 = db.Column(db.String(255), nullable=False)
+    solution = db.Column(db.Integer, nullable=False)
 
-    # Clé étrangère vers Module
-    module_id = db.Column(db.Integer, db.ForeignKey('module.id_'), nullable=False)
+class FilsInstructions(db.Model):
+    __tablename__ = 'FilsInstructions'
+    id_ = db.Column(db.Integer, primary_key=True, nullable=False) 
+    description = db.Column(db.String(1024), nullable=False)
+    FilsInstruction1id = db.Column(db.Integer, db.ForeignKey('FilsInstruction1.id_'), nullable=False)
+    
+    fils_instruction1 = db.relationship('FilsInstruction1', back_populates='instructions')
 
-    def __repr__(self):
-        return f"Matricule {self.numero} relié au module {self.module_id}"
+class FilsInstruction1(db.Model):
+    __tablename__ = 'FilsInstruction1'
+    id_ = db.Column(db.Integer, primary_key=True, nullable=False)
+    fils4 = db.Column(db.String(1024), nullable=False)
+    fils5 = db.Column(db.String(1024), nullable=False)
+    fils6 = db.Column(db.String(1024), nullable=False)
+    
+    instructions = db.relationship('FilsInstructions', back_populates='fils_instruction1')
+
+class PatPlay(db.Model):
+    __tablename__ = 'PatPlay'
+    id_ = db.Column(db.Integer, primary_key=True, nullable=False)
+    couleurTriangle = db.Column(db.String(255), nullable=False)
+    couleurCercle = db.Column(db.String(255), nullable=False)
+    couleurCarre = db.Column(db.String(255), nullable=False)
+    couleurX = db.Column(db.String(255), nullable=False)
+    formeHG = db.Column(db.String(255), nullable=False)
+    formeHD = db.Column(db.String(255), nullable=False)
+    formeBG = db.Column(db.String(255), nullable=False)
+    formeBD = db.Column(db.String(255), nullable=False)
+    solution = db.Column(db.String(255), nullable=False)
+
+class PatPlayInstructions(db.Model):
+    __tablename__ = 'PatPlayInstructions'
+    id_ = db.Column(db.Integer, primary_key=True, nullable=False)
+    description = db.Column(db.String(1024), nullable=False)
+    PatPlayInstructions1id = db.Column(db.Integer, db.ForeignKey('PatPlayInstructions1.id_'), nullable=False)
+    PatPlayInstructions2id = db.Column(db.Integer, db.ForeignKey('PatPlayInstructions2.id_'), nullable=False)
+    
+    instruction1 = db.relationship('PatPlayInstructions1', back_populates='instructions')
+    instruction2 = db.relationship('PatPlayInstructions2', back_populates='instructions')
+
+class PatPlayInstructions1(db.Model):
+    __tablename__ = 'PatPlayInstructions1'
+    id_ = db.Column(db.Integer, primary_key=True, nullable=False)
+    couleur = db.Column(db.String(255), nullable=False)
+    carre = db.Column(db.Integer, nullable=False)
+    cercle = db.Column(db.Integer, nullable=False)
+    triangle = db.Column(db.Integer, nullable=False)
+    x = db.Column(db.Integer, nullable=False)
+    
+    instructions = db.relationship('PatPlayInstructions', back_populates='instruction1')
+
+class PatPlayInstructions2(db.Model):
+    __tablename__ = 'PatPlayInstructions2'
+    id_ = db.Column(db.Integer, primary_key=True, nullable=False)
+    nbFinal = db.Column(db.Integer, nullable=False)
+    ordre = db.Column(db.String(255), nullable=False)
+    
+    instructions = db.relationship('PatPlayInstructions', back_populates='instruction2')
+
+class Lights(db.Model):
+    __tablename__ = 'Lights'
+    id_ = db.Column(db.Integer, primary_key=True, nullable=False)
+    lumiere = db.Column(db.String(9), nullable=False)
+    solution = db.Column(db.String(6), nullable=False)
+
+class LightsInstructions(db.Model):
+    __tablename__ = 'LightsInstructions'
+    id_ = db.Column(db.Integer, primary_key=True, nullable=False)
+    description = db.Column(db.String(1024), nullable=False)
+    LightsInstructions1id = db.Column(db.Integer, db.ForeignKey('LightsInstructions1.id_'), nullable=False)
+    
+    instruction1 = db.relationship('LightsInstructions1', back_populates='instructions')
+
+class LightsInstructions1(db.Model):
+    __tablename__ = 'LightsInstructions1'
+    id_ = db.Column(db.Integer, primary_key=True, nullable=False)
+    lumiere = db.Column(db.String(9), nullable=False)
+    leviers = db.Column(db.String(6), nullable=False)
+    
+    instructions = db.relationship('LightsInstructions', back_populates='instruction1')
+
+class Bipolarite(db.Model):
+    __tablename__ = 'Bipolarite'
+    id_ = db.Column(db.Integer, primary_key=True, nullable=False)
+    lettre1 = db.Column(db.String(1), nullable=False)
+    lettre2 = db.Column(db.String(1), nullable=False)
+    lettre3 = db.Column(db.String(1), nullable=False)
+    lettre4 = db.Column(db.String(1), nullable=False)
+    caseChoisie = db.Column(db.Integer, nullable=False)
+    couleur = db.Column(db.String(255), nullable=False)
+    solution = db.Column(db.String(255), nullable=False)
+
+class BipolariteInstructions(db.Model):
+    __tablename__ = 'BipolariteInstructions'
+    id_ = db.Column(db.Integer, primary_key=True, nullable=False)
+    description = db.Column(db.String(1024), nullable=False)
+    BipolariteInstructions1id = db.Column(db.Integer, db.ForeignKey('BipolariteInstructions1.id_'), nullable=False)
+    
+    instruction1 = db.relationship('BipolariteInstructions1', back_populates='instructions')
+
+class BipolariteInstructions1(db.Model):
+    __tablename__ = 'BipolariteInstructions1'
+    id_ = db.Column(db.Integer, primary_key=True, nullable=False)
+    lettre = db.Column(db.String(1), nullable=False)
+    majuscule = db.Column(db.String(8), nullable=False)
+    minuscule = db.Column(db.String(8), nullable=False)
+    
+    instructions = db.relationship('BipolariteInstructions', back_populates='instruction1')
+
