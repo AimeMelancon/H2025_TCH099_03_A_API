@@ -1,5 +1,7 @@
 from flask import jsonify
+
 from models import Niveau, TraductionCouleurs
+
 from sqlalchemy import Select
 from app import db
 
@@ -12,13 +14,16 @@ def getNiveaux():
     Retour:
       S'il y a des niveaux:
         Une liste de dictionnaires (hashmaps)  tel que:
+
         [{"color" : (string), "description": (string), [...] ]
+
         Réponse HTTP: 200 OK
 
       Sinon:
         {"error": "Instruction non trouvée."}
         Réponse HTTP: 404 Not Found
     """
+
 
     # Requête SQL avec JOIN
     stmt = (
@@ -43,5 +48,6 @@ def getNiveaux():
             }
             for niveau, hex_code in results
         ]), 200
+
     else:       
         return jsonify({"error": "Aucun niveau trouvé"}), 404

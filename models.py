@@ -1,17 +1,20 @@
 from app import db
 
+
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
 class Niveau(db.Model):
     __tablename__ = 'niveau'
+
     id_ = db.Column(db.Integer, primary_key=True)
     nom = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=False)
     duration = db.Column(db.Integer, nullable=False)
     difficulty = db.Column(db.String(30), nullable=False)
     color = db.Column(db.String(6), nullable=False)
+
     nbEvent = db.Column(db.Integer, nullable=False)
 
 class Evenement(db.Model):
@@ -158,3 +161,4 @@ class BipolariteInstructions1(db.Model):
     minuscule = db.Column(db.String(8), nullable=False)
     
     instructions = db.relationship('BipolariteInstructions', back_populates='instruction1')
+
