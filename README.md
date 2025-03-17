@@ -12,5 +12,3 @@ URL pour le repository de l'application web : [Client web](https://github.com/ju
  
 ### Disponible dans le wiki :
 [Routes](https://github.com/AimeMelancon/H2025_TCH099_03_A_API/wiki/Routes)
-        
-
