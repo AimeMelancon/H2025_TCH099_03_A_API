@@ -1,4 +1,4 @@
-# BSP_API <sub>V1.1</sub>
+# BSP_API <sub>V1</sub>
 **L'API pour le projet Bash Space Program**
 
 Bash Space Program est un jeu qui se joue à deux joueurs veillez vous référencez au wiki ou la documentation du jeu
