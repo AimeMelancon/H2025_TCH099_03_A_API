@@ -9,7 +9,7 @@ def getInstructions(module, matricule):
     stmt = (
         Select(TraductionMatricule)
         .filter(TraductionMatricule.idMatricule == matricule, TraductionMatricule.nomModule == module)
-
+    )
     # Exécution de la requête
     result = db.session.execute(stmt).scalars().first()
 
