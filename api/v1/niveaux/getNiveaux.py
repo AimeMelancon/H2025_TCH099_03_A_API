@@ -15,12 +15,12 @@ def getNiveaux():
       S'il y a des niveaux:
         Une liste de dictionnaires (hashmaps)  tel que:
 
-        [{"color" : (string), "description": (string), [...] ]
+        [{"couleur" : (string), "description": (string), [...] ]
 
         Réponse HTTP: 200 OK
 
       Sinon:
-        {"error": "Instruction non trouvée."}
+        {"error": "Aucun niveau trouvé"}
         Réponse HTTP: 404 Not Found
     """
 
@@ -28,7 +28,7 @@ def getNiveaux():
     # Requête SQL avec JOIN
     stmt = (
         Select(Niveau, TraductionCouleurs.hexCouleur)
-        .join(TraductionCouleurs, Niveau.color == TraductionCouleurs.nomCouleur)
+        .join(TraductionCouleurs, Niveau.couleur == TraductionCouleurs.nomCouleur) # Transformer couleur textuelle en hex
     )
 
     # Exécute la requête
@@ -41,9 +41,9 @@ def getNiveaux():
                 "id": niveau.id_, 
                 "nom": niveau.nom, 
                 "description": niveau.description, 
-                "duration": niveau.duration, 
-                "difficulty": niveau.difficulty, 
-                "color": hex_code,  # Utilisation du code hex au lieu du nom de la couleur
+                "duree": niveau.duree, 
+                "difficulte": niveau.difficulte, 
+                "couleur": hex_code,
                 "nbEvent": niveau.nbEvent
             }
             for niveau, hex_code in results

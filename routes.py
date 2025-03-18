@@ -28,7 +28,7 @@ def initialize_routes(app):
     def niveau_indiv(niveau):
         """Route qui récupère le niveau spécifié de la base de données."""
 
-        # Récupérer la liste de niveaux
+        # Récupérer le niveau spécifié
         data = getNiveau(niveau)
 
         
@@ -44,18 +44,21 @@ def initialize_routes(app):
 
     @app.route('/api/v1/verify', methods=['GET'])
     def instructions():
-        """Route qui récupères les instructions pour un module et matricule fourni"""
+        """Route qui récupères les instructions pour un module et matricule fourni
+           '/api/v1/verify?matricule=<matricule>&module=<module>'
+        """
+
+        # Récupère les paramètres après le ?
         module = request.args.get("module")
         matricule = request.args.get("matricule")
 
-        # Récupérer la liste de niveaux
+        # Vérifier le module & matricule et retourner les instructions s'il y a lieu.
         data = getInstructions(module, matricule)
         
         # Préparer la réponse
         response  = make_response(data)
         
-         # Set les headers de la réponse.
-
+        # Set les headers de la réponse.
         response.headers['Access-Control-Allow-Origin'] = '*'
         response.headers['Content-Type'] = 'application/json; charset=utf-8'
         
