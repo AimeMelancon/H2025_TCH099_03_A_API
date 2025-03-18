@@ -2,7 +2,8 @@
 from api.v1.niveaux.getNiveau import getNiveau
 from api.v1.niveaux.getNiveaux import getNiveaux
 from api.v1.instructions.getInstructions import getInstructions
-from api.v1.event.getEvent import getEvent
+from api.v1.events.getEvent import getEvent
+from api.v1.modules.getModule import getModule
 from flask import make_response, request
 
 
@@ -82,6 +83,24 @@ def initialize_routes(app):
         response.headers['Content-Type'] = 'application/json; charset=utf-8'
         
         return response
+    
+    @app.route('/api/v1/module/<module_name>', methods=['GET'])
+    def call_mod(module_name):
+        """Route qui récupère un module avec son nom"""
+        
+        #On cherche le module choisie
+        data = getModule(module_name)
+        
+        #La réponse de la requête
+        response = make_response(data)
+        
+          # Set les headers de la réponse.
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Content-Type'] = 'application/json; charset=utf-8'
+        
+        return response
+        
+        
 
 
     
