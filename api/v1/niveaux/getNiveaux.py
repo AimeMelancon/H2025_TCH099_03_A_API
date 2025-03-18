@@ -20,7 +20,7 @@ def getNiveaux():
         Réponse HTTP: 200 OK
 
       Sinon:
-        {"error": "Instruction non trouvée."}
+        {"error": "Aucun niveau trouvé"}
         Réponse HTTP: 404 Not Found
     """
 
