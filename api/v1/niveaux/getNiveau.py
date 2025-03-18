@@ -38,7 +38,7 @@ def getNiveau(niveau):
         niveau, hexCouleur = result
 
         return jsonify({
-            "id": niveau.id_, 
+            "id_": niveau.id_, 
             "nom": niveau.nom, 
             "description": niveau.description, 
             "duree": niveau.duree, 
