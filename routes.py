@@ -2,7 +2,10 @@
 from api.v1.niveaux.getNiveau import getNiveau
 from api.v1.niveaux.getNiveaux import getNiveaux
 from api.v1.instructions.getInstructions import getInstructions
+from api.v1.event.getEvent import getEvent
 from flask import make_response, request
+
+
 
 def initialize_routes(app):
 
@@ -59,6 +62,22 @@ def initialize_routes(app):
         response  = make_response(data)
         
         # Set les headers de la réponse.
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Content-Type'] = 'application/json; charset=utf-8'
+        
+        return response
+    
+    @app.route('/api/v1/evenement/<int:id_event>', methods=['GET'])
+    def event(id_event):
+        """Route qui récupère un évènement sélectionner grâce à un id"""
+        
+        #On cherche l'évènement en question puis on l'envoie dans data
+        data = getEvent(id_event)
+        
+        #Préparation de la réponse
+        response = make_response(data)
+        
+         # Set les headers de la réponse.
         response.headers['Access-Control-Allow-Origin'] = '*'
         response.headers['Content-Type'] = 'application/json; charset=utf-8'
         
