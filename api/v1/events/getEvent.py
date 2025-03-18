@@ -6,7 +6,7 @@ from app import db
 def getEvent(id_event):
     """Si l'id existe pour l'évènement il le retourne sinon il envoie une erreur.
     
-        Route associée: /api/v1/evenement/<id_event>    
+        Route associée: /api/v1/events/<id_event>    
 
         Paramètre: 
         id_event (int): L'id de l'évènement en cours dans l'application
