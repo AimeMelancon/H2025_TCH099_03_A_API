@@ -67,7 +67,7 @@ def initialize_routes(app):
         
         return response
     
-    @app.route('/api/v1/evenement/<int:id_event>', methods=['GET'])
+    @app.route('/api/v1/events/<int:id_event>', methods=['GET'])
     def event(id_event):
         """Route qui récupère un évènement sélectionner grâce à un id"""
         
