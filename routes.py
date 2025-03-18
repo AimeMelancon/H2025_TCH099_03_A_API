@@ -2,7 +2,7 @@
 from api.v1.niveaux.getNiveau import getNiveau
 from api.v1.niveaux.getNiveaux import getNiveaux
 from api.v1.instructions.getInstructions import getInstructions
-from api.v1.event.getEvent import getEvent
+from api.v1.events.getEvent import getEvent
 from flask import make_response, request
 
 
