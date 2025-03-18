@@ -28,7 +28,7 @@ def getNiveaux():
     # Requête SQL avec JOIN
     stmt = (
         Select(Niveau, TraductionCouleurs.hexCouleur)
-        .join(TraductionCouleurs, Niveau.color == TraductionCouleurs.nomCouleur)
+        .join(TraductionCouleurs, Niveau.couleur == TraductionCouleurs.nomCouleur)
     )
 
     # Exécute la requête
@@ -41,9 +41,9 @@ def getNiveaux():
                 "id": niveau.id_, 
                 "nom": niveau.nom, 
                 "description": niveau.description, 
-                "duration": niveau.duration, 
-                "difficulty": niveau.difficulty, 
-                "color": hex_code,  # Utilisation du code hex au lieu du nom de la couleur
+                "duree": niveau.duree, 
+                "difficulte": niveau.difficulte, 
+                "couleur": hex_code,  # Utilisation du code hex au lieu du nom de la couleur
                 "nbEvent": niveau.nbEvent
             }
             for niveau, hex_code in results

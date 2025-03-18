@@ -52,8 +52,8 @@ class Fils(db.Model):
     solution = db.Column(db.Integer, nullable=False)
 
 
-class FilsInstruction1(db.Model):
-    __tablename__ = 'FilsInstruction1'
+class FilsInstructions1(db.Model):
+    __tablename__ = 'FilsInstructions1'
     id_ = db.Column(db.Integer, primary_key=True, nullable=False)
     fils4 = db.Column(db.String(1024), nullable=False)
     fils5 = db.Column(db.String(1024), nullable=False)
