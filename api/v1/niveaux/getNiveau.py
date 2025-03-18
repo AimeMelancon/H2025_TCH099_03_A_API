@@ -7,7 +7,7 @@ def getNiveau(niveau):
     """Récupère le niveau spécifié en paramètre de la base de données.
 
     
-    Route associée: '/api/v1/niveau/<int:niveau>', méthodes: GET
+    Route associée: '/api/v1/niveaux/<int:niveau>', méthodes: GET
 
     Paramètres:
       niveau (int): le id du niveau.
@@ -43,7 +43,7 @@ def getNiveau(niveau):
             "description": niveau.description, 
             "duree": niveau.duree, 
             "difficulte": niveau.difficulte, 
-            "coleur": hexCouleur,  # Remplace le nom par le code hex de la couleur
+            "couleur": hexCouleur,  # Remplace le nom par le code hex de la couleur
             "nbEvent": niveau.nbEvent
         }), 200
 
