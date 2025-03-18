@@ -76,7 +76,7 @@ def getInstructions(module, matricule):
         # Transforme en dictionnaire la première table d'instruction
         patplay_instructions1 = [
             {
-                "id": inst.id_,
+                "id_": inst.id_,
                 "couleur": inst.couleur,
                 "carre": inst.carre,
                 "cercle": inst.cercle,
@@ -89,7 +89,7 @@ def getInstructions(module, matricule):
         # Transforme en dictionnaire la deuxième table d'instruction
         patplay_instructions2 = [
             {
-                "id": inst.id_,
+                "id_": inst.id_,
                 "nbFinal": inst.nbFinal,
                 "ordre": inst.ordre
             }

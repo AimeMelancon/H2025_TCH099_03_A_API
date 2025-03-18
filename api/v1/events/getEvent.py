@@ -8,19 +8,21 @@ def getEvent(id_event):
     
         Route associée: /api/v1/evenement/<id_event>    
 
-        Paramètre : 
-        
+        Paramètre: 
         id_event (int): L'id de l'évènement en cours dans l'application
         
         
         Retour :
         
-        Si l'id_event est correct:
-            Retourne l'évènement avec toute ses spécifications avec le code 200
-        
-        sinon:
+          Si l'id_event est correct:
+            Retourne l'évènement en entier avec tous ses attributs
+            Réponse HTTP: 200 OK
 
-            Retourne une erreur 404
+
+        
+          Sinon:
+            {"error":"Aucun évènement trouvé."}
+            Réponse HTTP: 404 Not Found
     
     """
     
@@ -43,10 +45,10 @@ def getEvent(id_event):
         event, hexCouleur = result
         #On renvoie un json de la réponse de la requête positive
         return jsonify({
-            "id": event.id_,
+            "id_": event.id_,
             "nom":event.nom,
             "description":event.description,
-            "dure":event.duree,
+            "duree":event.duree,
             "couleur": hexCouleur,
             "typeModule":event.typeModule
         }),200
@@ -56,4 +58,3 @@ def getEvent(id_event):
         return jsonify({
             "error":"Aucun évènement trouvé."
         }),404
-
