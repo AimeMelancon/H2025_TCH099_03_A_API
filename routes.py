@@ -5,6 +5,8 @@ from api.v1.instructions.getInstructions import getInstructions
 from api.v1.events.getEvent import getEvent
 from flask import make_response, request
 
+
+
 def initialize_routes(app):
 
     @app.route('/api/v1/niveaux',methods=['GET'])
