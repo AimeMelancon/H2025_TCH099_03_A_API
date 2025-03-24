@@ -18,18 +18,18 @@ def creerAdmin(pseudo,mdp):
     
     #Encodage selon la norme utf-8 du mot de passe et du pseudo de l'administrateur
     bytemdp = mdp.encode('utf-8')
-    bytepsd = pseudo.encode('utf-8')
+    
     
     #Génération d'un "sel" sécurisé
     sel = bcrypt.gensalt()
     
     #Le mot de passe hashé
     hashpw = bcrypt.hashpw(bytemdp,sel)
-    hashpsd = bcrypt.hashpw(bytepsd,sel)
+   
     
     
     #Création d'un utilisateur admin
-    new_Admin = Admin(pseudo=hashpsd,mdp=hashpw)
+    new_Admin = Admin(pseudo=pseudo,mdp=hashpw)
     db.session.add(new_Admin)
     
     try:
