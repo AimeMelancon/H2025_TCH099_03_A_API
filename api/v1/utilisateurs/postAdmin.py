@@ -44,7 +44,7 @@ def creerAdmin(pseudo,mdp):
         #Fait un rollback dans la base de donnée puis envoie l'erreur avec ses détails.
          
         db.session.rollback()  
-        return jsonify({"error": f"Il y a un problème dans la création de l'administrateur : {e}"}), 500
+        return jsonify({"error": f"Il y a un problème dans la création de l'administrateur : {str(e)}"}), 500
     
     
     
