@@ -18,7 +18,7 @@ def creerAdmin(pseudo,mdp):
     
     #Encodage selon la norme utf-8 du mot de passe et du pseudo de l'administrateur
     bytemdp = mdp.encode('utf-8')
-    bytepsd = pseudo.encore('utf-8')
+    bytepsd = pseudo.encode('utf-8')
     
     #Génération d'un "sel" sécurisé
     sel = bcrypt.gensalt()

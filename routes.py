@@ -96,10 +96,6 @@ def initialize_routes(app):
         
         #Création d'un compte admin    
         response=  creerAdmin(pseudo,mdp)
-      
-        # Set les headers de la réponse.
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        response.headers['Content-Type'] = 'application/json; charset=utf-8'
         
         return response
 
