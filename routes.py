@@ -3,6 +3,7 @@ from api.v1.niveaux.getNiveau import getNiveau
 from api.v1.niveaux.getNiveaux import getNiveaux
 from api.v1.instructions.getInstructions import getInstructions
 from api.v1.events.getEvent import getEvent
+from api.v1.utilisateurs.postAdmin import creerAdmin
 from flask import make_response, request
 
 
@@ -82,6 +83,26 @@ def initialize_routes(app):
         response.headers['Content-Type'] = 'application/json; charset=utf-8'
         
         return response
+
+
+    @app.route('/api/v1/admin', methods=['POST'])
+    def inscriptionAdmin():
+        """Route qui permet de créer un administrateur grâce à
+           /api/v1/admin?pseudo=<pseudo>&mdp=<mdp>"""
+        
+        #Récupération des données pour la création du compte
+        pseudo = request.args.get('pseudo')
+        mdp = request.args.get('mdp')
+        
+        #Création d'un compte admin    
+        response=  creerAdmin(pseudo,mdp)
+      
+        # Set les headers de la réponse.
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Content-Type'] = 'application/json; charset=utf-8'
+        
+        return response
+
 
 
     
