@@ -10,7 +10,8 @@ class Niveau(db.Model):
     duree = db.Column(db.Integer, nullable=False)
     difficulte = db.Column(db.String(30), nullable=False)
     couleur = db.Column(db.String(6), nullable=False)
-    nbEvent = db.Column(db.Integer, nullable=False)
+    minTemps = db.Column(db.Integer, nullable=False)
+    maxTemps = db.Column(db.Integer, nullable=False)
 
 class Evenement(db.Model):
     __tablename__ = 'evenement'

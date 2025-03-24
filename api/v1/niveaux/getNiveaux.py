@@ -44,7 +44,8 @@ def getNiveaux():
                 "duree": niveau.duree, 
                 "difficulte": niveau.difficulte, 
                 "couleur": hex_code,
-                "nbEvent": niveau.nbEvent
+                "minTemps": niveau.minTemps,
+                "maxTemps": niveau.maxTemps
             }
             for niveau, hex_code in results
         ]), 200
