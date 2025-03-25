@@ -50,23 +50,25 @@ def getSomme():
     somme += X[dicSeparer[3]]
     return somme
 
+#Triangle = 0 / Cercle = 1 / Carrée = 2 / X = 3 
+
 def getSolution():
     somme = getSomme()
     match somme :
         case 5:
-            return 1234
+            return "3021"
         case 7: 
-            return 1324
+            return "0132"
         case 9:
-            return 1342
+            return "1023"
         case 10: 
-            return 2134
+            return "1203"
         case 12:
-            return 2314
+            return "2310"
         case 14: 
-            return 3142
+            return "3102"
         case _: 
-            return 4123
+            return "0321"
 
 dic.update({"solution": getSolution()})
 
