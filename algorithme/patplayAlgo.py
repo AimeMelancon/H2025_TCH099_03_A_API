@@ -1,0 +1,73 @@
+import random
+# dictionnaire
+dic = {}
+# Toutes les formes + couleurs + positions
+couleurs = ["Rouge", "Bleu", "Jaune", "Vert"]
+formes = ["Triangle","Cercle","Carre","X"]
+positions = ["HG","HD","BG","BD"]
+
+# String de base (pour le dictionnaire)
+couleurForme = "couleur"
+formePosition = "forme"
+
+# Aléatoire pour la positions des couleurs par rapport à leur forme 
+listeNombre1 = random.sample(range(1,5), 4)
+listeCouleurs = [None,None,None,None]
+
+for i,value in enumerate(listeNombre1):
+    listeCouleurs[value-1] = couleurs[i]
+
+# Met la clé/valeur pour le "couleur'Forme'" et chacune de leur couleur
+dic = {f"{couleurForme}{value}": listeCouleurs[i] for i,value in enumerate(formes)} 
+print(dic)
+
+#---------------------------------------------
+#Placage pour les formes dans les différentes positions 
+
+listeNombre2 = random.sample(range(1,5), 4)
+listeFormes = [None,None,None,None]
+
+for i,value in enumerate(listeNombre2):
+    listeFormes[value-1] = formes[i]
+
+dic.update({f"{formePosition}{value}": listeFormes[i] for i,value in enumerate(positions)})
+print(dic)
+
+#-------------------------------------------------------------------------------------------------------------
+#Algorithme pour trouver la bonne suite pour patplay 
+
+Triangle = {"Jaune": 3, "Vert": 2, "Bleu": 1, "Rouge": 4} 
+Cercle = {"Jaune": 5, "Vert": 3, "Bleu": 2, "Rouge": 1}
+Carre = {"Jaune": 4, "Vert": 1, "Bleu": 3, "Rouge": 2}
+X = {"Jaune": 2, "Vert": 4, "Bleu": 5, "Rouge": 3}
+dicSeparer = list(dic.values())[0:4]
+
+def getSomme(): 
+    somme = 0
+    somme += Triangle[dicSeparer[0]]
+    somme += Cercle[dicSeparer[1]]
+    somme += Carre[dicSeparer[2]]
+    somme += X[dicSeparer[3]]
+    return somme
+
+def getSolution():
+    somme = getSomme()
+    match somme :
+        case 5:
+            return 1234
+        case 7: 
+            return 1324
+        case 9:
+            return 1342
+        case 10: 
+            return 2134
+        case 12:
+            return 2314
+        case 14: 
+            return 3142
+        case _: 
+            return 4123
+
+dic.update({"solution": getSolution()})
+
+print(dic)
