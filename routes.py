@@ -5,7 +5,8 @@ from api.v1.instructions.getInstructions import getInstructions
 from api.v1.events.getEvent import getEvent
 from api.v1.utilisateurs.postAdmin import creerAdmin
 from flask import make_response, request
-
+from tokenApi import token_required
+from api.v1.utilisateurs.getAdmin import coAdmin
 
 
 def initialize_routes(app):
@@ -86,9 +87,10 @@ def initialize_routes(app):
 
 
     @app.route('/api/v1/admin', methods=['POST'])
+    @token_required
     def inscriptionAdmin():
         """Route qui permet de créer un administrateur grâce à
-           /api/v1/admin?pseudo=<pseudo>&mdp=<mdp>"""
+           /api/v1/admin?pseudo=<pseudo>&mdp=<mdp>&token=<token>"""
         
         #Récupération des données pour la création du compte
         pseudo = request.args.get('pseudo')
@@ -98,6 +100,26 @@ def initialize_routes(app):
         response=  creerAdmin(pseudo,mdp)
         
         return response
+    
+    @app.route('/api/v1/admin', methods=['GET'])
+    def connexionAdmin():
+        """Route qui permet de créer un administrateur grâce à
+           /api/v1/admin?pseudo=<pseudo>&mdp=<mdp>"""
+           
+        pseudo = request.args.get('pseudo')
+        mdp    = request.args.get('mdp')
+        
+        data = coAdmin(pseudo,mdp)
+        
+        #Préparation de la réponse
+        response = make_response(data)
+        
+         # Set les headers de la réponse.
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Content-Type'] = 'application/json; charset=utf-8'
+        
+        return response
+        
 
 
 

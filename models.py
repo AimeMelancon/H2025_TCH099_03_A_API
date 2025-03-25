@@ -124,14 +124,12 @@ class BipolariteInstructions1(db.Model):
     majuscule = db.Column(db.String(8), nullable=False)
     minuscule = db.Column(db.String(8), nullable=False)
 
-class Admin(db.Model):
-    __tablename__ = 'Admin'
-    id_         = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    pseudo      = db.Column(db.String(255), unique=True, nullable=False)
+class Utilisateur(db.Model):
+    __tablename__ = 'Utilisateur'
+    id_         = db.Column(db.Integer, primary_key=True, nullable=False)
+    pseudo      = db.Column(db.String(255), nullable=False)
     mdp   	    = db.Column(db.String(255), nullable=False)
-    gererModule = db.Column(db.Integer, nullable=True)
-    gererEvent  = db.Column(db.Integer, nullable=True)
-    gererDebug  = db.Column(db.Integer, nullable=True)
-	
+    admin       = db.Column(db.Integer, nullable=False, default=0)
+    
 	
 

@@ -1,6 +1,7 @@
 from flask import jsonify
 from app import db
-from models import Admin
+from models import Utilisateur
+import bcrypt
 
 def creerAdmin(pseudo, mdp):
     """Cette méthode permet de communiquer à la base de donnée
@@ -15,8 +16,17 @@ def creerAdmin(pseudo, mdp):
 
     try:
 
+        # Convertie le mot de passe en vecteur de byte
+        bytes = mdp.encode('utf-8') 
+  
+        # génère le sel 
+        sel = bcrypt.gensalt() 
+  
+        # Hash le mot de passe 
+        hash = bcrypt.hashpw(bytes, sel) 
+
         # Création de l'utilisateur admin
-        new_admin = Admin(pseudo=pseudo, mdp=mdp, gererModule=1,gererEvent=1,gererDebug=1)
+        new_admin = Utilisateur(pseudo=pseudo, mdp=hash, admin=1)
         db.session.add(new_admin)
         db.session.commit()
 
