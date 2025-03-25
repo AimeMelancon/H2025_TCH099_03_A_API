@@ -16,7 +16,7 @@ def creerAdmin(pseudo, mdp):
     try:
 
         # Création de l'utilisateur admin
-        new_admin = Admin(pseudo=pseudo, mdp=mdp, gererModule=0,gererEvent=0,gererDebug=0)
+        new_admin = Admin(pseudo=pseudo, mdp=mdp, gererModule=1,gererEvent=1,gererDebug=1)
         db.session.add(new_admin)
         db.session.commit()
 
