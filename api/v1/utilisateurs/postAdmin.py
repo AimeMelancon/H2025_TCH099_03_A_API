@@ -14,7 +14,6 @@ def creerAdmin(pseudo, mdp):
         return jsonify({"error": "Les informations sont incomplètes veuillez réessayer."}), 400
 
     try:
-        # Hash du mot de passe avec Flask-Bcrypt
 
         # Création de l'utilisateur admin
         new_admin = Admin(pseudo=pseudo, mdp=mdp)
