@@ -3,7 +3,7 @@ from app import db
 from models import Utilisateur
 import datetime
 from sqlalchemy import Select
-import bcrypt
+from flask_bcrypt import check_password_hash
 import jwt
 
 
@@ -18,16 +18,15 @@ def coAdmin(pseudo,mdp):
     try:
          stmt = (
             Select(Utilisateur)
-            .filter(Utilisateur.pseudo == pseudo))
+            .filter(Utilisateur.pseudo == pseudo)
+            .filter(Utilisateur.admin == 1))
          
          result =db.session.execute(stmt).first()
          #Permet de vérifier si l'identifiant est valide
          if result:
              
              # Encodage du mot de passe de l'utilisateur
-            userMDP = mdp.encode('utf-8') 
-             
-            connect = bcrypt.checkpw(userMDP,result.mdp)
+            connect = check_password_hash(result.mdp,mdp)
              #Permet de vérifier la connexion avec le mot de passe
             if connect:
                  #Génère un token
