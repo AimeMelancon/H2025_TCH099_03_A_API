@@ -1,7 +1,5 @@
 Flask
 Flask-SQLAlchemy
 Flask-CORS
-Bcrypt
 flask-Bcrypt
 pyjwt
-Jwt

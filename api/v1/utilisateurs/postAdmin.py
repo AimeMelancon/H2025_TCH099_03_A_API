@@ -20,7 +20,7 @@ def creerAdmin(pseudo, mdp):
        #Vérifie que l'utilisateur n'existe pas 
         stmt = (Select(Utilisateur)
                 .filter(Utilisateur.pseudo == pseudo)
-                .filter(Utilisateur.admin == 1))
+                )
         
         
         result = db.session.execute(stmt).first()

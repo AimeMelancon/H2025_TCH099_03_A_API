@@ -1,5 +1,3 @@
-
-
 import jwt
 from flask import  app,request,jsonify
 
