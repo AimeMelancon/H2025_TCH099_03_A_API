@@ -6,7 +6,7 @@ from flask import  app,request,jsonify
 
 def token_required(f):
     def decorated(*args,**kwargs):
-        token = request.args.get('token')
+        token = request.get_json('token')
         if not token:
             return jsonify({"error":"La requête manque un token"}),403
         try:

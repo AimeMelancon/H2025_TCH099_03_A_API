@@ -91,10 +91,13 @@ def initialize_routes(app):
 
 
     @app.route('/api/v1/admin', methods=['POST'])
-    #@token_required
+    @token_required
     def inscriptionAdmin():
         """Route qui permet de créer un administrateur grâce à
-           /api/v1/admin?pseudo=<pseudo>&mdp=<mdp>&token=<token>"""
+           {  "pseudo" :"<pseudo>",
+                "mdp" : "<mdp>".
+                "token" : "<token>"
+               }"""
         
         data = request.get_json()
 
