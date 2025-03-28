@@ -1,5 +1,5 @@
 from flask import jsonify
-from models import Bipolarite
+from models import Bipolarity
 from sqlalchemy import Select
 from app import db
 
@@ -7,7 +7,7 @@ def getBipolarite():
 
 
     # Requête SQL
-    stmt = Select(Bipolarite)
+    stmt = Select(Bipolarity)
 
     # Exécute la requête
     results = db.session.execute(stmt).scalars().all()
@@ -16,16 +16,16 @@ def getBipolarite():
     if results:
         return jsonify([
             {
-                "id_": bipolarite.id_,
-                "lettre1": bipolarite.lettre1,
-                "lettre2": bipolarite.lettre2,
-                "lettre3": bipolarite.lettre3,
-                "lettre4": bipolarite.lettre4,
-                "caseChoisie": bipolarite.caseChoisie,
-                "couleur": bipolarite.couleur,
-                "solution": bipolarite.solution
+                "id_": bipolarity.id_,
+                "lettre1": bipolarity.lettre1,
+                "lettre2": bipolarity.lettre2,
+                "lettre3": bipolarity.lettre3,
+                "lettre4": bipolarity.lettre4,
+                "caseChoisie": bipolarity.caseChoisie,
+                "couleur": bipolarity.couleur,
+                "solution": bipolarity.solution
             }
-            for bipolarite in results
+            for bipolarity in results
         ]), 200
     else:
         return jsonify({"error": "Aucun Bipolarité trouvé"}), 404
