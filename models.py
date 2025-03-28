@@ -40,8 +40,8 @@ class TraductionCouleurs(db.Model):
     nomCouleur = db.Column(db.String(255), primary_key=True, nullable=False)
     hexCouleur = db.Column(db.String(6), nullable=False)
 
-class Fils(db.Model):
-    __tablename__ = 'Fils'
+class Wires(db.Model):
+    __tablename__ = 'Wires'
     id_ = db.Column(db.Integer, primary_key=True, nullable=False)
     nbFils = db.Column(db.Integer, nullable=False)
     couleurFil1 = db.Column(db.String(255), nullable=True)
@@ -53,8 +53,8 @@ class Fils(db.Model):
     solution = db.Column(db.Integer, nullable=False)
 
 
-class FilsInstructions1(db.Model):
-    __tablename__ = 'FilsInstructions1'
+class WiresInstructions1(db.Model):
+    __tablename__ = 'WiresInstructions1'
     id_ = db.Column(db.Integer, primary_key=True, nullable=False)
     fils4 = db.Column(db.String(1024), nullable=False)
     fils5 = db.Column(db.String(1024), nullable=False)
@@ -105,8 +105,8 @@ class LightsInstructions1(db.Model):
     leviers = db.Column(db.String(6), nullable=False)
     
 
-class Bipolarite(db.Model):
-    __tablename__ = 'Bipolarite'
+class Bipolarity(db.Model):
+    __tablename__ = 'Bipolarity'
     id_ = db.Column(db.Integer, primary_key=True, nullable=False)
     lettre1 = db.Column(db.String(1), nullable=False)
     lettre2 = db.Column(db.String(1), nullable=False)
@@ -118,20 +118,18 @@ class Bipolarite(db.Model):
 
 
 class BipolariteInstructions1(db.Model):
-    __tablename__ = 'BipolariteInstructions1'
+    __tablename__ = 'BipolarityInstructions1'
     id_ = db.Column(db.Integer, primary_key=True, nullable=False)
     lettre = db.Column(db.String(1), nullable=False)
     majuscule = db.Column(db.String(8), nullable=False)
     minuscule = db.Column(db.String(8), nullable=False)
 
-class Admin(db.Model):
-    __tablename__ = 'Admin'
-    id_         = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    pseudo      = db.Column(db.String(255), unique=True, nullable=False)
+class Utilisateur(db.Model):
+    __tablename__ = 'Utilisateur'
+    id_         = db.Column(db.Integer, primary_key=True, nullable=False)
+    pseudo      = db.Column(db.String(255), nullable=False)
     mdp   	    = db.Column(db.String(255), nullable=False)
-    gererModule = db.Column(db.Integer, nullable=True)
-    gererEvent  = db.Column(db.Integer, nullable=True)
-    gererDebug  = db.Column(db.Integer, nullable=True)
-	
+    admin       = db.Column(db.Integer, nullable=False, default=0)
+    
 	
 

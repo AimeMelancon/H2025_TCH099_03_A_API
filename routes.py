@@ -1,10 +1,15 @@
-
 from api.v1.niveaux.getNiveau import getNiveau
 from api.v1.niveaux.getNiveaux import getNiveaux
 from api.v1.instructions.getInstructions import getInstructions
 from api.v1.events.getEvent import getEvent
 from api.v1.utilisateurs.postAdmin import creerAdmin
-from flask import make_response, request
+from flask import make_response, request, jsonify
+from tokenApi import token_required
+from api.v1.utilisateurs.getUser import coUser
+
+from api.v1.temp.fils import getFils
+from api.v1.temp.bipolarite import getBipolarite
+from api.v1.temp.lights import getLights
 
 
 
@@ -86,16 +91,103 @@ def initialize_routes(app):
 
 
     @app.route('/api/v1/admin', methods=['POST'])
+    @token_required
     def inscriptionAdmin():
         """Route qui permet de créer un administrateur grâce à
-           /api/v1/admin?pseudo=<pseudo>&mdp=<mdp>"""
+           {  "pseudo" :"<pseudo>",
+                "mdp" : "<mdp>".
+                "token" : "<token>"
+               }"""
         
+        data = request.get_json()
+
+        if not data or 'pseudo' not in data or 'mdp' not in data:
+            return jsonify({"error": "Les champs 'pseudo' et 'mdp' sont requis."}), 400
+
         #Récupération des données pour la création du compte
-        pseudo = request.args.get('pseudo')
-        mdp = request.args.get('mdp')
+        pseudo = data['pseudo']
+        mdp = data['mdp']
         
         #Création d'un compte admin    
-        response=  creerAdmin(pseudo,mdp)
+        response = creerAdmin(pseudo,mdp)
+        
+        return response
+    
+    @app.route('/api/v1/login', methods=['POST'])
+    def connexionAdmin():
+        """Route qui permet de se connecter à un compte.
+           Requête attendue : JSON avec 'pseudo' et 'mdp'
+
+            Exemple :
+            POST /api/v1/login
+            {
+                "pseudo": "admin1",
+                "mdp": "motdepasse"
+            }
+            """
+           
+        data = request.get_json()
+
+        if not data or 'pseudo' not in data or 'mdp' not in data:
+            return jsonify({"error": "Les champs 'pseudo' et 'mdp' sont requis."}), 400
+
+        pseudo = data['pseudo']
+        mdp = data['mdp']
+        
+        data = coUser(pseudo,mdp)
+        
+        #Préparation de la réponse
+        response = make_response(data)
+        
+         # Set les headers de la réponse.
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Content-Type'] = 'application/json; charset=utf-8'
+        
+        return response
+        
+
+    @app.route('/api/v1/temp/fils')
+    def temp1():
+            # Récupérer la liste de niveaux
+        data = getFils()
+        
+        # Préparer la réponse
+        response  = make_response(data)
+        
+        # Set les headers de la réponse.
+
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Content-Type'] = 'application/json; charset=utf-8'
+        
+        return response
+
+    @app.route('/api/v1/temp/bipolarite')
+    def temp2():
+            # Récupérer la liste de niveaux
+        data = getBipolarite()
+        
+        # Préparer la réponse
+        response  = make_response(data)
+        
+        # Set les headers de la réponse.
+
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Content-Type'] = 'application/json; charset=utf-8'
+        
+        return response
+
+    @app.route('/api/v1/temp/lights')
+    def temp3():
+            # Récupérer la liste de niveaux
+        data = getLights()
+        
+        # Préparer la réponse
+        response  = make_response(data)
+        
+        # Set les headers de la réponse.
+
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Content-Type'] = 'application/json; charset=utf-8'
         
         return response
 

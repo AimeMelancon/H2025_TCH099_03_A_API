@@ -43,6 +43,17 @@ def getInstructions(module, matricule):
         Réponse HTTP: 404 Not Found
     """
 
+    # Le nom du module n'est pas case-sensitive côté front-end
+    # On doit donc le rendre conforme au nom de la table de la db.
+    # Ex: PatPlay, Lights, Wires, Bipolarity
+    if module.lower() == "patplay":
+        module = module.lower().replace('p', 'P')
+    else:
+        module = module.lower().capitalize()
+
+    # Le matricale n'est pas case-sensitive côté front-end
+    # On doit donc le rendre conforme avec la DB (Uppercase)
+    matricule = matricule.upper()    
 
     # Requête SQL
     stmt = (
@@ -58,7 +69,8 @@ def getInstructions(module, matricule):
 
     #------ Module et matricule existent et son liés ------
     # Cas spécial: PatPlay (2 tables)
-    if module == 'PatPlay':
+
+    if module =='PatPlay':
 
         # Requêtes SQL
         stmt_desc = (Select(InstructionsDescriptions.description)
