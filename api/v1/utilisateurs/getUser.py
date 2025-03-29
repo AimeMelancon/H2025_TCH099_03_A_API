@@ -30,7 +30,7 @@ def coUser(pseudo,mdp):
              #Permet de vérifier la connexion avec le mot de passe
             if connect:
                  #Génère un token
-                 token = jwt.encode({'pseudo': pseudo, "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=15)},current_app.config['secret_key'],algorithm="HS256")
+                 token = jwt.encode({'pseudo': pseudo, "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=12)},current_app.config['secret_key'],algorithm="HS256")
                  
                  #Prépare la réponse en boolean pour savoir si c'est un admin ou nom
                  estAdmin=True if result.admin == 1 else False
