@@ -1,3 +1,4 @@
+
 from flask import jsonify
 
 from models import BipolarityInstructions1
@@ -75,4 +76,5 @@ def polariteAlgo() :
 
 
     
+
 
