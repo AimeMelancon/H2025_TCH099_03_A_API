@@ -40,4 +40,9 @@ def lightsAlgo():
     dic = liste[LENGTH-1]  
     dic.pop("id_")
 
+    dic["solution"] = dic["leviers"]
+    dic.pop("leviers")
+
+    return dic
+
 
