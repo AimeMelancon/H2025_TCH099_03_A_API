@@ -13,7 +13,7 @@ def getLightsTable():
     )
 
     # Exécute la requête
-    results = db.session.execute(stmt).all()
+    results = db.session.execute(stmt).scalars().all()
 
     # Retour
     if results:
@@ -36,7 +36,7 @@ def lightsAlgo():
     LENGTH = len(liste) 
     choix = random.randint(1,LENGTH)    
 
-    dic = liste[LENGTH-1]  
+    dic = liste[choix-1]
     dic.pop("id_")
 
 

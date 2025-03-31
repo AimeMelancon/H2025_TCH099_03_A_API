@@ -1,5 +1,3 @@
-def filsAlgo(): pass
-
 #Faire un dictionnaire avec l'équivalent de la db (pour le module)                     FAIT
 #Choisir aléatoirement pour créer les modules (tous sauf id_, solution)                FAIT
 #Prendre ce qu'il y a dans le dictionnaire et trouver la solution avec l'algo          A FAIRE

@@ -1,6 +1,3 @@
-def patplayAlgo():
-    pass
-
 import random
 # dictionnaire
 
@@ -25,7 +22,6 @@ def patplayAlgo() :
 
     # Met la clé/valeur pour le "couleur'Forme'" et chacune de leur couleur
     dic = {f"{couleurForme}{value}": listeCouleurs[i] for i,value in enumerate(formes)} 
-    print(dic)
 
     #---------------------------------------------
     #Placage pour les formes dans les différentes positions 

@@ -243,19 +243,36 @@ def initialize_routes(app):
             typeModule = "PatPlay"
 
         else:
-            return
+            return jsonify({'erreur': "Module non trouvé"}), 404 
         
         stmt = Select(Evenement).filter(Evenement.typeModule == typeModule)
-        results = db.session.execute(stmt).mappings().all() # liste de dictionaires
+        results = db.session.execute(stmt).scalars().all()
+
+        if results:
+
+            results_list = [
+                            {
+                                "id_": row.id_,
+                                "nom": row.nom,
+                                "description": row.description,
+                                "duree": row.duree,
+                                "couleur": row.couleur,
+                                "typeModule": row.typeModule
+                            }
+                            for row in results
+                    ]
+        else:
+            return jsonify({'erreur': "Module non trouvé"}), 404 
+
 
         fetch_length = len(results)
         random_module_index = random.randint(0, fetch_length - 1)
-        random_event_dic = results[random_module_index]
+        random_event_dic = results_list[random_module_index]
 
         response_content = [data, random_event_dic]
 
          # Préparer la réponse
-        response  = make_response(response_content)
+        response  = make_response(jsonify(response_content))
         
         # Set les headers de la réponse.
 

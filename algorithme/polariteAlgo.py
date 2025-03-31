@@ -14,7 +14,7 @@ def getbipolarityTable():
     )
 
     # Exécute la requête
-    results = db.session.execute(stmt).all()
+    results = db.session.execute(stmt).scalars().all()
 
     # Retour
     if results:
@@ -33,7 +33,7 @@ def getbipolarityTable():
         return "erreur"
     
 def polariteAlgo() :
-    liste_bipolariteTable = getbipolarityTable
+    liste_bipolariteTable = getbipolarityTable()
     dic = {}
     # Lettre 1 / Lettre 2 / Lettre 3 / Lettre 4 / caseChoisie / couleur / solution 
     liste_lettres =  random.sample(range(1,27), 4)
@@ -59,7 +59,7 @@ def polariteAlgo() :
     dic["caseChosie"] = caseChoisie
     dic["couleur"] = couleurChoisie
 
-    dicSolution = liste_bipolariteTable[liste_lettres[caseChoisie-1]]
+    dicSolution = liste_bipolariteTable[liste_lettres[caseChoisie-1] - 1]
 
     if (couleurChiffreChoisie == 1) :
         solution = dicSolution.get("majuscule")
