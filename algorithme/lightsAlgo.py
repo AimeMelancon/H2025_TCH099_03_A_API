@@ -20,9 +20,8 @@ def getLightsTable():
         return [
             {
                 "id_": data.id_, 
-                "lumiers": data.nom, 
-                "leviers": data.description, 
-            
+                "lumiere": data.lumiere, 
+                "leviers": data.leviers 
             }
             for data in results
         ]
