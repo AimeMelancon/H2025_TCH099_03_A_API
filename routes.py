@@ -195,8 +195,7 @@ def initialize_routes(app):
     def inscriptionUser():
         """Route qui permet de créer un utilisateur grâce à
            {  "pseudo" :"<pseudo>",
-                "mdp" : "<mdp>"
-                
+                "mdp" : "<mdp>"                
                }"""
         
         data = request.get_json()
@@ -213,7 +212,21 @@ def initialize_routes(app):
         
         return response
         
-
-
+    
+    @app.route('/api/v1/testDeConnexion', methods=['POST'])  
+    @token_required
+    def testCo():
+        """Route qui permet de vérifier un token
+           {
+                "token" : "<token>"
+               }"""
+        data= request.get_json()
+       
+        if not data or 'token' not in data:
+            return jsonify({"error": "Il manque un token."}), 400
+        
+        response = jsonify({"test": True})
+        
+        return response
 
     

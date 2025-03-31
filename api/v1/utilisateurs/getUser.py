@@ -35,7 +35,7 @@ def coUser(pseudo,mdp):
                  #Prépare la réponse en boolean pour savoir si c'est un admin ou nom
                  estAdmin=True if result.admin == 1 else False
                  #Renvoie la réponse à la requête positive
-                 return jsonify({"Connexion" : True, "Utilisateur": pseudo ,"admin" : estAdmin , "token": token}),200
+                 return jsonify({"connexion" : True, "utilisateur": pseudo ,"admin" : estAdmin , "token": token}),200
             else:
                  return jsonify({"error":"L'identifiant ou le mot de passe fournie n'est pas valide."}),401
          else:

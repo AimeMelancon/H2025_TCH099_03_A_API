@@ -1,10 +1,11 @@
 import jwt
 from flask import  current_app,request,jsonify
-
+from functools import wraps
 
 #'Permet de  vérifier si le token est valide ou non.'
 
 def token_required(f):
+    @wraps(f)
     def decorated(*args,**kwargs):
         #Permet de récupérer le token dans le json
         data = request.get_json()
