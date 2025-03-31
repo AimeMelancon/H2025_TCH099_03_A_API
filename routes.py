@@ -4,12 +4,20 @@ from api.v1.instructions.getInstructions import getInstructions
 from api.v1.events.getEvent import getEvent
 from api.v1.utilisateurs.postAdmin import creerAdmin
 from flask import make_response, request, jsonify
+from app import db
 from tokenApi import token_required
+from sqlalchemy import Select
 from api.v1.utilisateurs.getUser import coUser
 from api.v1.utilisateurs.postUtilisateurs import creerUtilisateur
 from api.v1.temp.fils import getFils
 from api.v1.temp.bipolarite import getBipolarite
 from api.v1.temp.lights import getLights
+from algorithme.filsAlgo import filsAlgo
+from algorithme.lightsAlgo import lightsAlgo
+from algorithme.patplayAlgo import patplayAlgo
+from algorithme.polariteAlgo import polariteAlgo
+from models import Evenement
+import random
 
 
 
@@ -212,6 +220,49 @@ def initialize_routes(app):
         response = creerUtilisateur(pseudo,mdp)
         
         return response
+    
+    @app.route('/api/v1/module', methods=['GET'])
+    def getModule():
+        module = request.args.get("module")
+        typeModule = ""
+
+        if module.lower().capitalize() == "Wires":
+            data = filsAlgo()
+            typeModule = "Wires"
+
+        elif module.lower().capitalize() == "Lights":
+            data = lightsAlgo()
+            typeModule = "Lights"
+
+        elif module.lower().capitalize() == "Bipolarity":
+            data = polariteAlgo()
+            typeModule = "Bipolarity"
+
+        elif module.lower().replace('p', 'P') == "PatPlay":
+            data = patplayAlgo()
+            typeModule = "PatPlay"
+
+        else:
+            return
+        
+        stmt = Select(Evenement).filter(Evenement.typeModule == typeModule)
+        results = db.session.execute(stmt).mappings().all() # liste de dictionaires
+
+        fetch_length = len(results)
+        random_module_index = random.randint(0, fetch_length - 1)
+        random_event_dic = results[random_module_index]
+
+        response_content = [data, random_event_dic]
+
+         # Préparer la réponse
+        response  = make_response(response_content)
+        
+        # Set les headers de la réponse.
+
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Content-Type'] = 'application/json; charset=utf-8'
+        return response
+
         
 
 

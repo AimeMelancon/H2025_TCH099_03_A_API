@@ -117,7 +117,7 @@ class Bipolarity(db.Model):
     solution = db.Column(db.String(255), nullable=False)
 
 
-class BipolariteInstructions1(db.Model):
+class BipolarityInstructions1(db.Model):
     __tablename__ = 'BipolarityInstructions1'
     id_ = db.Column(db.Integer, primary_key=True, nullable=False)
     lettre = db.Column(db.String(1), nullable=False)

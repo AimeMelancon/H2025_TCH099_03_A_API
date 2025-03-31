@@ -1,3 +1,6 @@
+def patplayAlgo():
+    pass
+
 import random
 # dictionnaire
 dic = {}

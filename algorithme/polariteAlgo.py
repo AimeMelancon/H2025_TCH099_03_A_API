@@ -1,0 +1,2 @@
+def polariteAlgo():
+    pass
