@@ -6,7 +6,7 @@ from api.v1.utilisateurs.postAdmin import creerAdmin
 from flask import make_response, request, jsonify
 from tokenApi import token_required
 from api.v1.utilisateurs.getUser import coUser
-
+from api.v1.utilisateurs.postUtilisateurs import creerUtilisateur
 from api.v1.temp.fils import getFils
 from api.v1.temp.bipolarite import getBipolarite
 from api.v1.temp.lights import getLights
@@ -190,6 +190,29 @@ def initialize_routes(app):
         response.headers['Content-Type'] = 'application/json; charset=utf-8'
         
         return response
+    
+    @app.route('/api/v1/utilisateur', methods=['POST'])
+    def inscriptionUser():
+        """Route qui permet de créer un utilisateur grâce à
+           {  "pseudo" :"<pseudo>",
+                "mdp" : "<mdp>"
+                
+               }"""
+        
+        data = request.get_json()
+
+        if not data or 'pseudo' not in data or 'mdp' not in data:
+            return jsonify({"error": "Les champs 'pseudo' et 'mdp' sont requis."}), 400
+
+        #Récupération des données pour la création du compte
+        pseudo = data['pseudo']
+        mdp = data['mdp']
+        
+        #Création d'un compte admin    
+        response = creerUtilisateur(pseudo,mdp)
+        
+        return response
+        
 
 
 
