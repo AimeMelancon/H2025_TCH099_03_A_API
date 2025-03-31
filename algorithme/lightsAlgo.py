@@ -4,6 +4,7 @@ from models import LightsInstructions1
 
 from sqlalchemy import Select
 from app import db
+import random
 
 def getLightsTable():
     # Requête SQL avec JOIN
@@ -31,6 +32,12 @@ def getLightsTable():
 
 
 def lightsAlgo():
-    pass
+    liste = getLightsTable()
 
-    
+    LENGTH = len(liste) 
+    choix = random.randint(1,LENGTH)    
+
+    dic = liste[LENGTH-1]  
+    dic.pop("id_")
+
+
