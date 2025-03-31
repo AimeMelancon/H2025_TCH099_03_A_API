@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -6,6 +7,7 @@ db = SQLAlchemy()
 def create_app():
     """Initialise le framework Flask. Retourne l'application flask."""
     app = Flask(__name__)
+    CORS(app)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./database.db'
     app.config['secret_key'] = "C'est un secret"
     
