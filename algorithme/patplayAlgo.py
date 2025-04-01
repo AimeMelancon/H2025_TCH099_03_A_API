@@ -88,7 +88,7 @@ def patplayAlgo() :
     for key in dic:
         if key.startswith("couleur"):
             original_color = dic[key]
-            dic[key] = color_to_hex.get(original_color, original_color)  # fallback to name if no hex
+            dic[key] = color_to_hex.get(original_color, original_color)  # fallback au nom original si pas de hex
 
 
 
