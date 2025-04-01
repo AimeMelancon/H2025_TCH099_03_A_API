@@ -1,12 +1,15 @@
 #Faire un dictionnaire avec l'équivalent de la db (pour le module)                     FAIT
 #Choisir aléatoirement pour créer les modules (tous sauf id_, solution)                FAIT
-#Prendre ce qu'il y a dans le dictionnaire et trouver la solution avec l'algo          A FAIRE
-#Transformer en JSON                                                                   A FAIRE
-#Retourner le JSON                                                                     A FAIRE
+#Prendre ce qu'il y a dans le dictionnaire et trouver la solution avec l'algo          FAIT
+#Transformer en JSON                                                                   FAIT
+#Retourner le JSON                                                                     FAIT
 #
 # Dans une boucle for, tu met la clé (selon la table de numero) (i.e : couleurFils3), ensuite tu prend aléatoirement une couleur (choice) 
 
 import random
+from models import TraductionCouleurs
+from sqlalchemy import Select
+from app import db
 
 def filsAlgo() :
 
@@ -83,6 +86,22 @@ def filsAlgo() :
                 
 
     dic.update({"solution" : findSolution()})
+
+    # Fetch tous les mapping de couleur
+    traductions = db.session.execute(
+        Select(TraductionCouleurs.nomCouleur, TraductionCouleurs.hexCouleur)
+    ).all()
+
+    # Store dans un dictionnaire
+    color_to_hex = {nom: hex_ for nom, hex_ in traductions}
+
+    # Remplacer tous les filsCouleur par leur couleur en hex, venant du dictionnaire créé précédemment
+    for key in dic:
+        if key.startswith("filsCouleur"):
+            original_color = dic[key]
+            dic[key] = color_to_hex.get(original_color, original_color)  # fallback au nom original si pas de hex
+
+
 
     return dic
 

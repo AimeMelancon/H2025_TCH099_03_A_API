@@ -1,4 +1,7 @@
 import random
+from models import TraductionCouleurs
+from sqlalchemy import Select
+from app import db
 # dictionnaire
 
 def patplayAlgo() :
@@ -33,7 +36,6 @@ def patplayAlgo() :
         listeFormes[value-1] = formes[i]
 
     dic.update({f"{formePosition}{value}": listeFormes[i] for i,value in enumerate(positions)})
-    print(dic)
 
     #-------------------------------------------------------------------------------------------------------------
     #Algorithme pour trouver la bonne suite pour patplay 
@@ -73,5 +75,21 @@ def patplayAlgo() :
                 return "0321"
 
     dic.update({"solution": getSolution()})
+
+    # Fetch tous les mapping de couleur
+    traductions = db.session.execute(
+        Select(TraductionCouleurs.nomCouleur, TraductionCouleurs.hexCouleur)
+    ).all()
+
+    # Store dans un dictionnaire
+    color_to_hex = {nom: hex_ for nom, hex_ in traductions}
+
+    # Remplacer toutes les couleurs par leur couleur en hex, venant du dictionnaire créé précédemment
+    for key in dic:
+        if key.startswith("couleur"):
+            original_color = dic[key]
+            dic[key] = color_to_hex.get(original_color, original_color)  # fallback to name if no hex
+
+
 
     return dic

@@ -16,7 +16,7 @@ from algorithme.filsAlgo import filsAlgo
 from algorithme.lightsAlgo import lightsAlgo
 from algorithme.patplayAlgo import patplayAlgo
 from algorithme.polariteAlgo import polariteAlgo
-from models import Evenement
+from models import Evenement, TraductionCouleurs
 import random
 
 
@@ -245,8 +245,11 @@ def initialize_routes(app):
         else:
             return jsonify({'erreur': "Module non trouvé"}), 404 
         
-        stmt = Select(Evenement).filter(Evenement.typeModule == typeModule)
-        results = db.session.execute(stmt).scalars().all()
+        stmt = (Select(Evenement, TraductionCouleurs.hexCouleur)
+                .join(TraductionCouleurs, TraductionCouleurs.nomCouleur == Evenement.couleur)
+                .filter(Evenement.typeModule == typeModule)
+                )
+        results = db.session.execute(stmt).all()
 
         if results:
 
@@ -256,10 +259,10 @@ def initialize_routes(app):
                                 "nom": row.nom,
                                 "description": row.description,
                                 "duree": row.duree,
-                                "couleur": row.couleur,
+                                "couleur": hexCouleur,
                                 "typeModule": row.typeModule
                             }
-                            for row in results
+                            for row, hexCouleur in results
                     ]
         else:
             return jsonify({'erreur': "Module non trouvé"}), 404 

@@ -1,7 +1,7 @@
 
 from flask import jsonify
 
-from models import BipolarityInstructions1
+from models import BipolarityInstructions1, TraductionCouleurs
 
 from sqlalchemy import Select
 from app import db
@@ -67,6 +67,13 @@ def polariteAlgo() :
         solution = dicSolution.get("minuscule")
 
     dic["solution"] = solution
+
+    # Get la traduction de la couleur en hex si existe
+    traduction = db.session.execute(
+    Select(TraductionCouleurs.hexCouleur).filter_by(nomCouleur=couleurChoisie)
+    ).scalar_one_or_none()
+
+    dic["couleur"] = traduction if traduction else couleurChoisie
 
     return dic
 
