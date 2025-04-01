@@ -56,7 +56,7 @@ def polariteAlgo() :
     dic["lettre2"] = dictLettre2.get("lettre")
     dic["lettre3"] = dictLettre3.get("lettre")
     dic["lettre4"] = dictLettre4.get("lettre")
-    dic["caseChosie"] = caseChoisie
+    dic["caseChoisie"] = caseChoisie
     dic["couleur"] = couleurChoisie
 
     dicSolution = liste_bipolariteTable[liste_lettres[caseChoisie-1] - 1]
