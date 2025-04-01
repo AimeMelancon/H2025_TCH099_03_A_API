@@ -269,7 +269,7 @@ def initialize_routes(app):
         random_module_index = random.randint(0, fetch_length - 1)
         random_event_dic = results_list[random_module_index]
 
-        response_content = {"module": data, "event": random_event_dic}
+        response_content = {"module": data, "eventData": random_event_dic}
 
          # Préparer la réponse
         response  = make_response(jsonify(response_content))
