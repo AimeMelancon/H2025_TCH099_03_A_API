@@ -13,7 +13,6 @@ from app import db
 
 def filsAlgo() :
 
-    # dictionnaire
     dic = {}
     # Couleurs possibles
     couleurs = ["Rouge", "Bleu", "Jaune", "Rose", "Blanc"]
@@ -27,20 +26,20 @@ def filsAlgo() :
     # Liste triée avec un nombre aléatoire de nombres entre 1 et 6 choisis aléatoirement.
     liste = sorted(random.sample(range(1,7), nb))
 
+    # Dictionnaire avec toutes les clés de 1 à 6
+    dic = {"nbFils": nb}
 
-    # Dictionnaire (trié) avec tous les fils
-    dic = {f"{fils}{i}": random.choice(couleurs) for i in liste}
-
-
-    # Rajouter nbFils au début
-    # l'opérateur ** unpack le dictionnaire (retourne le reste du dict)
-    dic = {"nbFils": nb, **dic}
+    for i in range(1, 7):  # Boucle sur tous les nombres de 1 à 6
+        if i in liste:
+            dic[f"{fils}{i}"] = random.choice(couleurs)  # Assigne une couleur si dans la liste
+        else:
+            dic[f"{fils}{i}"] = ""  # Sinon, une chaîne vide
 
 
     #---------------------------------------------------------------------------------------------------
 
 
-    dicCouleurs = {"Rouge":0,"Bleu":0,"Jaune":0,"Rose":0,"Blanc":0}
+    dicCouleurs = {"Rouge":0,"Bleu":0,"Jaune":0,"Rose":0,"Blanc":0, "":0}
     listeValeur = list(dic.values())
 
     def findLastColor(color):
