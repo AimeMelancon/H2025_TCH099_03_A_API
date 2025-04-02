@@ -7,9 +7,9 @@
 # Dans une boucle for, tu met la clé (selon la table de numero) (i.e : couleurFils3), ensuite tu prend aléatoirement une couleur (choice) 
 
 import random
-from models import TraductionCouleurs
-from sqlalchemy import Select
-from app import db
+# from models import TraductionCouleurs
+# from sqlalchemy import Select
+# from app import db
 
 def filsAlgo() :
 
@@ -29,11 +29,9 @@ def filsAlgo() :
     # Dictionnaire avec toutes les clés de 1 à 6
     dic = {"nbFils": nb}
 
-    for i in range(1, 7):  # Boucle sur tous les nombres de 1 à 6
-        if i in liste:
-            dic[f"{fils}{i}"] = random.choice(couleurs)  # Assigne une couleur si dans la liste
-        else:
-            dic[f"{fils}{i}"] = ""  # Sinon, une chaîne vide
+    for i in liste:  # Boucle sur tous les nombres de 1 à 6
+        dic[f"{fils}{i}"] = random.choice(couleurs)  # Assigne une couleur si dans la liste
+        
 
 
     #---------------------------------------------------------------------------------------------------
@@ -86,19 +84,35 @@ def filsAlgo() :
 
     dic.update({"solution" : findSolution()})
 
-    # Fetch tous les mapping de couleur
-    traductions = db.session.execute(
-        Select(TraductionCouleurs.nomCouleur, TraductionCouleurs.hexCouleur)
-    ).all()
+    if dic["nbFils"] < 6 :
+        if "filsCouleur1" not in dic : 
+            dic["filsCouleur1"] = ""
+        if "filsCouleur2" not in dic : 
+            dic["filsCouleur2"] = ""
+        if "filsCouleur3" not in dic : 
+            dic["filsCouleur3"] = ""
+        if "filsCouleur4" not in dic : 
+            dic["filsCouleur4"] = ""
+        if "filsCouleur5" not in dic : 
+            dic["filsCouleur5"] = ""
+        if "filsCouleur6" not in dic : 
+            dic["filsCouleur6"] = ""
 
-    # Store dans un dictionnaire
-    color_to_hex = {nom: hex_ for nom, hex_ in traductions}
+    
 
-    # Remplacer tous les filsCouleur par leur couleur en hex, venant du dictionnaire créé précédemment
-    for key in dic:
-        if key.startswith("filsCouleur"):
-            original_color = dic[key]
-            dic[key] = color_to_hex.get(original_color, original_color)  # fallback au nom original si pas de hex
+    # # Fetch tous les mapping de couleur
+    # traductions = db.session.execute(
+    #     Select(TraductionCouleurs.nomCouleur, TraductionCouleurs.hexCouleur)
+    # ).all()
+
+    # # Store dans un dictionnaire
+    # color_to_hex = {nom: hex_ for nom, hex_ in traductions}
+
+    # # Remplacer tous les filsCouleur par leur couleur en hex, venant du dictionnaire créé précédemment
+    # for key in dic:
+    #     if key.startswith("filsCouleur"):
+    #         original_color = dic[key]
+    #         dic[key] = color_to_hex.get(original_color, original_color)  # fallback au nom original si pas de hex
 
 
 
