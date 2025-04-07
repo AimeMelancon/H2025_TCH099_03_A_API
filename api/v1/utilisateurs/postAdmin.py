@@ -39,8 +39,8 @@ def creerAdmin(pseudo, mdp):
             return jsonify({"message": "La création de l'administrateur a bien été effectuée."}), 200
         
         else:
-            return jsonify({"error": f"Il y a un problème dans la création de l'administrateur."}), 500
+            return jsonify({"error": "Il y a un problème dans la création de l'administrateur."}), 500
 
     except Exception as e:
             db.session.rollback()
-            return jsonify({"error": f"Il y a un problème dans la création de l'administrateur."}), 500
+            return jsonify({"error": "Il y a un problème dans la création de l'administrateur."}), 500

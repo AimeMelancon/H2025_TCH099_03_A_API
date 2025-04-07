@@ -62,10 +62,10 @@ def initialize_routes(app):
     @token_required
     def inscriptionAdmin():
         """Route qui permet de créer un administrateur grâce à
-           {  "pseudo" :"<pseudo>",
-                "mdp" : "<mdp>".
+            {  "pseudo" :"<pseudo>",
+                "mdp"   : "<mdp>",
                 "token" : "<token>"
-               }"""
+            }"""
         
         data = request.get_json()
 
@@ -117,9 +117,9 @@ def initialize_routes(app):
     @app.route('/api/v1/utilisateur', methods=['POST'])
     def inscriptionUser():
         """Route qui permet de créer un utilisateur grâce à
-           {  "pseudo" :"<pseudo>",
+            {  "pseudo" :"<pseudo>",
                 "mdp" : "<mdp>"                
-               }"""
+            }"""
         
         data = request.get_json()
 
@@ -221,7 +221,7 @@ def initialize_routes(app):
     
     @app.route("/api/v1",methods=['GET'])
     def apiCo():
-        """Route qui permet de vérifier que l'api est bien connecté"""
+        """Route qui permet de vérifier que l'api est bien connectée"""
         
         data = jsonify({"estConnecte":True})
         

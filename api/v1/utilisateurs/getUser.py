@@ -35,7 +35,7 @@ def coUser(pseudo,mdp):
                  token = jwt.encode({'pseudo': pseudo, "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=12)},current_app.config['secret_key'],algorithm="HS256")
                  
                  #Prépare la réponse en boolean pour savoir si c'est un admin ou nom
-                 estAdmin=True if result.admin == 1 else False
+                 estAdmin = True if result.admin == 1 else False
 
                  #Renvoie la réponse à la requête positive
                  return jsonify({"connexion" : True, "utilisateur": pseudo ,"admin" : estAdmin , "token": token}),200
@@ -47,4 +47,4 @@ def coUser(pseudo,mdp):
              return jsonify({"error": "L'identifiant ou le mot de passe fournie n'est pas valide."}),401
          
     except Exception as e:
-        return jsonify({"error":f"Échec de la connexion veuillez réessayer: {e}"}),404
+        return jsonify({"error": f"Échec de la connexion veuillez réessayer: {e}"}),500

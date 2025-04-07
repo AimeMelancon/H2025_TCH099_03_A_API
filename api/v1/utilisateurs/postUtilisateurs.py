@@ -30,7 +30,7 @@ def creerUtilisateur(pseudo, mdp):
             #hash le mot de passe avant de le mettre dans la db
             hashmdp = generate_password_hash(mdp)
             
-            # Création de l'utilisateur admin
+            # Création de l'utilisateur
             new_admin = Utilisateur(pseudo=pseudo, mdp=hashmdp, admin=0)
             db.session.add(new_admin)
             db.session.commit()
@@ -38,8 +38,8 @@ def creerUtilisateur(pseudo, mdp):
             return jsonify({"message": "La création de l'utilisateur a bien été effectuée."}), 200
         
         else:
-            return jsonify({"error": f"Il y a un problème dans la création de l'utilisateur."}), 500
+            return jsonify({"error": "Il y a un problème dans la création de l'utilisateur."}), 500
 
     except Exception as e:
             db.session.rollback()
-            return jsonify({"error": f"Il y a un problème dans la création de l'utilisateur."}), 500
+            return jsonify({"error": "Il y a un problème dans la création de l'utilisateur."}), 500
