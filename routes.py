@@ -1,7 +1,5 @@
-from api.v1.niveaux.getNiveau import getNiveau
 from api.v1.niveaux.getNiveaux import getNiveaux
 from api.v1.instructions.getInstructions import getInstructions
-from api.v1.events.getEvent import getEvent
 from api.v1.utilisateurs.postAdmin import creerAdmin
 from flask import make_response, request, jsonify
 from app import db
@@ -9,9 +7,6 @@ from tokenApi import token_required
 from sqlalchemy import Select
 from api.v1.utilisateurs.getUser import coUser
 from api.v1.utilisateurs.postUtilisateurs import creerUtilisateur
-from api.v1.temp.fils import getFils
-from api.v1.temp.bipolarite import getBipolarite
-from api.v1.temp.lights import getLights
 from algorithme.filsAlgo import filsAlgo
 from algorithme.lightsAlgo import lightsAlgo
 from algorithme.patplayAlgo import patplayAlgo
@@ -38,26 +33,7 @@ def initialize_routes(app):
         response.headers['Access-Control-Allow-Origin'] = '*'
         response.headers['Content-Type'] = 'application/json; charset=utf-8'
         
-        return response
-    
-
-    @app.route('/api/v1/niveaux/<int:niveau>',methods=['GET'])
-    def niveau_indiv(niveau):
-        """Route qui récupère le niveau spécifié de la base de données."""
-
-        # Récupérer le niveau spécifié
-        data = getNiveau(niveau)
-
-        
-        # Préparer la réponse
-        response  = make_response(data)
-        
-         # Set les headers de la réponse.
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        response.headers['Content-Type'] = 'application/json; charset=utf-8'
-        
-        return response
-    
+        return response  
 
     @app.route('/api/v1/verify', methods=['GET'])
     def instructions():
@@ -81,22 +57,6 @@ def initialize_routes(app):
         
         return response
     
-    @app.route('/api/v1/events/<int:id_event>', methods=['GET'])
-    def event(id_event):
-        """Route qui récupère un évènement sélectionner grâce à un id"""
-        
-        #On cherche l'évènement en question puis on l'envoie dans data
-        data = getEvent(id_event)
-        
-        #Préparation de la réponse
-        response = make_response(data)
-        
-         # Set les headers de la réponse.
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        response.headers['Content-Type'] = 'application/json; charset=utf-8'
-        
-        return response
-
 
     @app.route('/api/v1/admin', methods=['POST'])
     @token_required
@@ -153,51 +113,6 @@ def initialize_routes(app):
         
         return response
         
-
-    @app.route('/api/v1/temp/fils')
-    def temp1():
-            # Récupérer la liste de niveaux
-        data = getFils()
-        
-        # Préparer la réponse
-        response  = make_response(data)
-        
-        # Set les headers de la réponse.
-
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        response.headers['Content-Type'] = 'application/json; charset=utf-8'
-        
-        return response
-
-    @app.route('/api/v1/temp/bipolarite')
-    def temp2():
-            # Récupérer la liste de niveaux
-        data = getBipolarite()
-        
-        # Préparer la réponse
-        response  = make_response(data)
-        
-        # Set les headers de la réponse.
-
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        response.headers['Content-Type'] = 'application/json; charset=utf-8'
-        
-        return response
-
-    @app.route('/api/v1/temp/lights')
-    def temp3():
-            # Récupérer la liste de niveaux
-        data = getLights()
-        
-        # Préparer la réponse
-        response  = make_response(data)
-        
-        # Set les headers de la réponse.
-
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        response.headers['Content-Type'] = 'application/json; charset=utf-8'
-        
-        return response
     
     @app.route('/api/v1/utilisateur', methods=['POST'])
     def inscriptionUser():
@@ -244,6 +159,7 @@ def initialize_routes(app):
         else:
             return jsonify({'erreur': "Module non trouvé"}), 404 
         
+        # Récupérer les informations sur l'événement
         stmt = (Select(Evenement, TraductionCouleurs.hexCouleur, TraductionMatricule.idMatricule)
                 .join(TraductionCouleurs, TraductionCouleurs.nomCouleur == Evenement.couleur)
                 .join(TraductionMatricule, TraductionMatricule.nomModule == Evenement.typeModule)
@@ -266,7 +182,7 @@ def initialize_routes(app):
                             for row, hexCouleur, matricule in results
                     ]
         else:
-            return jsonify({'erreur': "Module non trouvé"}), 404 
+            return jsonify({'erreur': "Événement non trouvé"}), 404 
 
 
         fetch_length = len(results)
@@ -282,6 +198,7 @@ def initialize_routes(app):
 
         response.headers['Access-Control-Allow-Origin'] = '*'
         response.headers['Content-Type'] = 'application/json; charset=utf-8'
+
         return response
 
         
@@ -292,8 +209,8 @@ def initialize_routes(app):
         """Route qui permet de vérifier un token
            {
                 "token" : "<token>"
-               }"""
-        data= request.get_json()
+           }"""
+        data = request.get_json()
        
         if not data or 'token' not in data:
             return jsonify({"error": "Il manque un token."}), 400
@@ -312,6 +229,7 @@ def initialize_routes(app):
         
         response.headers['Access-Control-Allow-Origin'] = '*'
         response.headers['Content-Type'] = 'application/json; charset=utf-8'
+        
         return response
         
 

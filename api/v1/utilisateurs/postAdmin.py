@@ -27,8 +27,10 @@ def creerAdmin(pseudo, mdp):
         result = db.session.execute(stmt).first()
         
         if not result:
+
             #hash le mot de passe avant de le mettre dans la db
             hashmdp = generate_password_hash(mdp)
+            
             # Création de l'utilisateur admin
             new_admin = Utilisateur(pseudo=pseudo, mdp=hashmdp, admin=1)
             db.session.add(new_admin)
