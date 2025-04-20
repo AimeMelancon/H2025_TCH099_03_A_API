@@ -18,6 +18,6 @@ _L'API pour le projet Bash Space Program_
 
 ---
 ## Installation et exécution de l'API:
-- Sirigez-vous vers les [Release](https://github.com/AimeMelancon/H2025_TCH099_03_A_API/releases), téléchargez la dernière version du zip
+- Dirigez-vous vers les [Release](https://github.com/AimeMelancon/H2025_TCH099_03_A_API/releases), téléchargez la dernière version du zip
 - Extraire le ZIP
-- Lancer backend.exe
+- Exécuter backend.exe
