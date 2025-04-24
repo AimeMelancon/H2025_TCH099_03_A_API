@@ -15,3 +15,9 @@ _L'API pour le projet Bash Space Program_
   - URL pour le repository de l'application de bureau :  [Client bureau](https://github.com/Merisiel0/H2025_TCH099_03_A_C1.git)
 
   - URL pour le repository de l'application web :  [Client web](https://github.com/justinfiset/H2025_TCH099_03_A_C2.git)
+
+---
+## Installation et exécution de l'API:
+- Dirigez-vous vers les [Release](https://github.com/AimeMelancon/H2025_TCH099_03_A_API/releases), téléchargez la dernière version du zip
+- Extraire le ZIP
+- Exécuter backend.exe
