@@ -74,7 +74,7 @@ def filsAlgo() :
             case 6:
                 if dicCouleurs["Rose"] > 2:
                     return findLastColor("Rose")
-                elif dicCouleurs["Rouge"] == 1 and dicCouleurs["Blanc"] == 0:
+                elif dicCouleurs["Rouge"] == 1 and dicCouleurs["Blanc"] > 0:
                     return 1
                 elif dicCouleurs["Jaune"] == 0:
                     return 6
